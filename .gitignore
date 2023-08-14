@@ -1,4 +1,5 @@
 *.exe
 *.dll
 *.fdb
-/backup
+*.bak
+.venv

@@ -15,6 +15,7 @@ type
   TfrmPrincipal = class(TForm)
     btnConverter: TButton;
     Label1: TLabel;
+    Label2: TLabel;
     pgbProgresso: TProgressBar;
     procedure btnConverterClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
