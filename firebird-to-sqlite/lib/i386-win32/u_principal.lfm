@@ -4,7 +4,39 @@ object frmPrincipal: TfrmPrincipal
   Top = 372
   Width = 559
   Caption = 'Firebird to SQLite'
+  ClientHeight = 391
+  ClientWidth = 559
   OnShow = FormShow
   Position = poScreenCenter
   LCLVersion = '1.6.4.0'
+  object btnConverter: TButton
+    Left = 192
+    Height = 48
+    Top = 144
+    Width = 160
+    Caption = 'Converter dados'
+    OnClick = btnConverterClick
+    TabOrder = 0
+  end
+  object Label1: TLabel
+    Left = 72
+    Height = 33
+    Top = 72
+    Width = 454
+    Caption = 'Converter dados do Firebird para SQLite'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -28
+    Font.Name = 'Times New Roman'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentColor = False
+    ParentFont = False
+  end
+  object pgbProgresso: TProgressBar
+    Left = 120
+    Height = 48
+    Top = 224
+    Width = 336
+    TabOrder = 1
+  end
 end

@@ -21,8 +21,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="26"/>
-        <CursorPos X="3" Y="38"/>
+        <TopLine Value="45"/>
+        <CursorPos X="14" Y="56"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -34,13 +34,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="32" Y="14"/>
+        <TopLine Value="3"/>
+        <CursorPos X="57" Y="12"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit2>
     </Units>
-    <JumpHistory Count="4" HistoryIndex="3">
+    <JumpHistory Count="10" HistoryIndex="9">
       <Position1>
         <Filename Value="u_dados.pas"/>
       </Position1>
@@ -55,6 +56,30 @@
         <Filename Value="u_principal.pas"/>
         <Caret Line="24" Column="3" TopLine="13"/>
       </Position4>
+      <Position5>
+        <Filename Value="u_dados.pas"/>
+        <Caret Line="14" Column="32"/>
+      </Position5>
+      <Position6>
+        <Filename Value="u_principal.pas"/>
+        <Caret Line="46" Column="25" TopLine="26"/>
+      </Position6>
+      <Position7>
+        <Filename Value="u_principal.pas"/>
+        <Caret Line="48" Column="25" TopLine="28"/>
+      </Position7>
+      <Position8>
+        <Filename Value="u_principal.pas"/>
+        <Caret Line="49" Column="25" TopLine="29"/>
+      </Position8>
+      <Position9>
+        <Filename Value="u_principal.pas"/>
+        <Caret Line="56" Column="25" TopLine="35"/>
+      </Position9>
+      <Position10>
+        <Filename Value="u_principal.pas"/>
+        <Caret Line="61" Column="69" TopLine="45"/>
+      </Position10>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

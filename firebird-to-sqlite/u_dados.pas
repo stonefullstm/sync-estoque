@@ -5,7 +5,7 @@ unit u_dados;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, ZConnection;
+  Classes, SysUtils, FileUtil, ZConnection, ZDataset;
 
 type
 
@@ -14,6 +14,8 @@ type
   TdmDados = class(TDataModule)
     dbFirebird: TZConnection;
     dbSqlite: TZConnection;
+    zqSEstoque: TZQuery;
+    zqFEstoque: TZQuery;
   private
     { private declarations }
   public

@@ -1,8 +1,8 @@
 object dmDados: TdmDados
   OldCreateOrder = False
   Height = 396
-  HorizontalOffset = 532
-  VerticalOffset = 316
+  HorizontalOffset = 772
+  VerticalOffset = 241
   Width = 661
   object dbFirebird: TZConnection
     ControlsCodePage = cCP_UTF8
@@ -20,11 +20,32 @@ object dmDados: TdmDados
   object dbSqlite: TZConnection
     ControlsCodePage = cCP_UTF8
     AutoEncodeStrings = True
+    ClientCodepage = 'UTF-8'
     Properties.Strings = (
       'AutoEncodeStrings=ON'
+      'codepage=UTF-8'
+      'controls_cp=CP_UTF8'
     )
     Port = 0
+    Database = 'C:\Users\stone\sync-products\firebird-to-sqlite\estoque.sqlite3'
+    Protocol = 'sqlite-3'
+    LibraryLocation = 'C:\Users\stone\sync-products\firebird-to-sqlite\sqlite3.dll'
     left = 60
     top = 136
+  end
+  object zqSEstoque: TZQuery
+    Connection = dbSqlite
+    Params = <>
+    left = 156
+    top = 138
+  end
+  object zqFEstoque: TZQuery
+    Connection = dbFirebird
+    SQL.Strings = (
+      'select * from testoque'
+    )
+    Params = <>
+    left = 192
+    top = 49
   end
 end

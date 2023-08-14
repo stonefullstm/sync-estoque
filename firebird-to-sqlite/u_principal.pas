@@ -5,13 +5,18 @@ unit u_principal;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, IniFiles;
+  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
+  ComCtrls, IniFiles;
 
 type
 
   { TfrmPrincipal }
 
   TfrmPrincipal = class(TForm)
+    btnConverter: TButton;
+    Label1: TLabel;
+    pgbProgresso: TProgressBar;
+    procedure btnConverterClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
   private
     { private declarations }
@@ -41,6 +46,23 @@ begin
   dmDados.dbFirebird.Database := caminhoBanco;
   dmDados.dbFirebird.LibraryLocation := caminhoLib;
   dmDados.dbFirebird.Connect;
+end;
+
+procedure TfrmPrincipal.btnConverterClick(Sender: TObject);
+var
+  registros: integer;
+begin
+  dmDados.zqFEstoque.Open;
+  registros := dmDados.zqFEstoque.RecordCount;
+  dmDados.zqFEstoque.First;
+  pgbProgresso.Position := 0;
+  while not dmDados.zqFEstoque.EOF do
+  begin
+    pgbProgresso.Position := pgbProgresso.Position + (100 div registros);
+    dmDados.zqFEstoque.Next;
+  end;
+  dmDados.zqFEstoque.Close;
+  ShowMessage('Conversão concluída com sucesso');
 end;
 
 end.
