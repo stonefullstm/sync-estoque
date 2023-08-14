@@ -5,7 +5,7 @@ unit u_dados;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, ZConnection, ZDataset;
+  Classes, SysUtils, db, FileUtil, ZConnection, ZDataset;
 
 type
 
@@ -16,6 +16,10 @@ type
     dbSqlite: TZConnection;
     zqSEstoque: TZQuery;
     zqFEstoque: TZQuery;
+    zqSEstoquecontrole: TLargeintField;
+    zqSEstoqueproduto: TStringField;
+    zqSEstoqueqtde: TFloatField;
+    zqSEstoqueunidade: TStringField;
   private
     { private declarations }
   public

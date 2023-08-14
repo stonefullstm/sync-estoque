@@ -9,6 +9,7 @@ object dmDados: TdmDados
     AutoEncodeStrings = True
     Properties.Strings = (
       'AutoEncodeStrings=ON'
+      'controls_cp=CP_UTF8'
     )
     Port = 0
     User = 'sysdba'
@@ -35,9 +36,53 @@ object dmDados: TdmDados
   end
   object zqSEstoque: TZQuery
     Connection = dbSqlite
+    SQL.Strings = (
+      'select * from estoque'
+    )
     Params = <>
     left = 156
     top = 138
+    object zqSEstoquecontrole: TLargeintField
+      FieldKind = fkData
+      FieldName = 'controle'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object zqSEstoqueproduto: TStringField
+      FieldKind = fkData
+      FieldName = 'produto'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 400
+    end
+    object zqSEstoqueunidade: TStringField
+      FieldKind = fkData
+      FieldName = 'unidade'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 8
+    end
+    object zqSEstoqueqtde: TFloatField
+      FieldKind = fkData
+      FieldName = 'qtde'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      MaxValue = 0
+      MinValue = 0
+      Precision = 10
+    end
   end
   object zqFEstoque: TZQuery
     Connection = dbFirebird

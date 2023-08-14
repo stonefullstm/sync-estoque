@@ -12,7 +12,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
       </Unit0>
       <Unit1>
         <Filename Value="u_principal.pas"/>
@@ -21,9 +21,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="45"/>
-        <CursorPos X="14" Y="56"/>
-        <UsageCount Value="20"/>
+        <TopLine Value="55"/>
+        <CursorPos X="27" Y="73"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
@@ -34,14 +34,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="3"/>
-        <CursorPos X="57" Y="12"/>
-        <UsageCount Value="20"/>
+        <TopLine Value="4"/>
+        <CursorPos X="87" Y="16"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit2>
     </Units>
-    <JumpHistory Count="10" HistoryIndex="9">
+    <JumpHistory Count="15" HistoryIndex="14">
       <Position1>
         <Filename Value="u_dados.pas"/>
       </Position1>
@@ -80,6 +80,26 @@
         <Filename Value="u_principal.pas"/>
         <Caret Line="61" Column="69" TopLine="45"/>
       </Position10>
+      <Position11>
+        <Filename Value="u_principal.pas"/>
+        <Caret Line="56" Column="14" TopLine="45"/>
+      </Position11>
+      <Position12>
+        <Filename Value="u_dados.pas"/>
+        <Caret Line="20" Column="86" TopLine="6"/>
+      </Position12>
+      <Position13>
+        <Filename Value="u_dados.pas"/>
+        <Caret Line="21" Column="86" TopLine="6"/>
+      </Position13>
+      <Position14>
+        <Filename Value="u_dados.pas"/>
+        <Caret Line="22" Column="86" TopLine="6"/>
+      </Position14>
+      <Position15>
+        <Filename Value="u_dados.pas"/>
+        <Caret Line="23" Column="86" TopLine="6"/>
+      </Position15>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
