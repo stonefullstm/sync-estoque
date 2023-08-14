@@ -1,0 +1,30 @@
+object dmDados: TdmDados
+  OldCreateOrder = False
+  Height = 396
+  HorizontalOffset = 532
+  VerticalOffset = 316
+  Width = 661
+  object dbFirebird: TZConnection
+    ControlsCodePage = cCP_UTF8
+    AutoEncodeStrings = True
+    Properties.Strings = (
+      'AutoEncodeStrings=ON'
+    )
+    Port = 0
+    User = 'sysdba'
+    Password = 'masterkey'
+    Protocol = 'firebird'
+    left = 60
+    top = 37
+  end
+  object dbSqlite: TZConnection
+    ControlsCodePage = cCP_UTF8
+    AutoEncodeStrings = True
+    Properties.Strings = (
+      'AutoEncodeStrings=ON'
+    )
+    Port = 0
+    left = 60
+    top = 136
+  end
+end

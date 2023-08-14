@@ -1,0 +1,10 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 700
+  Height = 391
+  Top = 372
+  Width = 559
+  Caption = 'Firebird to SQLite'
+  OnShow = FormShow
+  Position = poScreenCenter
+  LCLVersion = '1.6.4.0'
+end
