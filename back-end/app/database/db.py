@@ -1,4 +1,4 @@
-from sqlmodel import create_engine, Session
+from sqlmodel import create_engine, Session, SQLModel
 
 
 sqlite_file_name = "estoque.sqlite3"
@@ -14,8 +14,8 @@ def get_session():
         yield session
 
 
-# def create_db_and_tables():
+def create_db_and_tables():
 
-#     from app.models import account, transaction  # noqa: F401
+    from app.models import estoque  # noqa: F401
 
-#     SQLModel.metadata.create_all(engine)
+    SQLModel.metadata.create_all(engine)

@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError, HTTPException
 from fastapi.responses import JSONResponse
+from app.database.db import create_db_and_tables
 # from fastapi.openapi.utils import get_openapi
 
 from app.routes import estoque
@@ -17,6 +18,11 @@ app.add_middleware(
   allow_methods=['*'],
   allow_headers=['*'],
 )
+
+
+@app.on_event("startup")
+def on_startup():
+    create_db_and_tables()
 
 
 @app.exception_handler(RequestValidationError)
