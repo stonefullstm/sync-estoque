@@ -8,5 +8,11 @@ class EstoqueSchema(BaseModel):
     qtde: int
 
 
+class EstoqueUpdateSchema(BaseModel):
+    produto: str
+    unidade: str
+    qtde: int
+
+
 class EstoqueList(BaseModel):
     products: list[EstoqueSchema]

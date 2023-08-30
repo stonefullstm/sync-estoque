@@ -3,3 +3,4 @@
 *.fdb
 *.bak
 .venv
+*.pyc
