@@ -1,0 +1,59 @@
+body {
+  background-color: #fbeed3;
+}
+
+h1 {
+  color: #6b5d4d;
+}
+
+.page_title {
+  text-align: center;
+}
+
+.filters {
+  margin-top: 10px;
+}
+
+.input {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.transfer_total {
+  text-align: center;
+  margin: 5px;
+}
+
+.filter_form {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.transfer_table, th, td {
+  border: 1px solid black;
+}
+
+.transfer_table {
+  border-collapse: collapse;
+  margin: auto;
+}
+
+.total_balance {
+  margin-right: 40px;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+  width: 120px;
+}
+  
+th {
+  font-weight: bold;
+}
+  
+  
+tr:nth-child(even) {
+  background-color: #b0a18f;
+}
+  
