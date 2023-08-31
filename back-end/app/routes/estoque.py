@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 # from sqlalchemy.exc import NoResultFound
-from sqlmodel import Session, select
+from sqlmodel import Session, select, delete
 
 from app.models.estoque import Estoque
 from app.schemas.estoque import EstoqueList, EstoqueSchema
@@ -50,3 +50,20 @@ def create_product(
         session.commit()
         session.refresh(produto)
         return produto
+
+
+@router.post('/lista',
+             summary='Create/Update a product list.',
+             response_model=EstoqueList,
+             status_code=201,
+             tags=['Estoque'])
+def create_product_list(
+    products: list[Estoque],
+    session: Session = Depends(get_session)
+):
+    session.exec(delete(Estoque))
+    session.commit()
+    session.add_all(products)
+    session.commit()
+    products = session.exec(select(Estoque).limit(10))
+    return {'products': products}
