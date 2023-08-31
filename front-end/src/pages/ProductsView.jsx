@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import Pagination from "../components/Pagination";
 import { myFetch } from "../services/fetch";
 import "../styles/BankStatement.css";
-import { converteData } from "../services/dateUtil";
+// import { converteData } from "../services/dateUtil";
 
 const PageSize = 10;
 

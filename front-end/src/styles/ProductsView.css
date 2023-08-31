@@ -30,6 +30,7 @@ h1 {
 }
 
 .transfer_table, th, td {
+  width: 80%;
   border: 1px solid black;
 }
 
@@ -45,7 +46,7 @@ h1 {
 th, td {
   padding: 10px;
   text-align: center;
-  width: 120px;
+  width: auto;
 }
   
 th {
@@ -56,4 +57,4 @@ th {
 tr:nth-child(even) {
   background-color: #b0a18f;
 }
-  
+
