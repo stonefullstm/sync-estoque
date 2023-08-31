@@ -30,7 +30,23 @@ def create_product(
     product: Estoque,
     session: Session = Depends(get_session)
 ):
-    session.add(product)
-    session.commit()
-    session.refresh(product)
-    return product
+    produto: Estoque = session.exec(select(Estoque).where(
+        Estoque.controle == product.controle)).first()
+    if not produto:
+        session.add(product)
+        session.commit()
+        session.refresh(product)
+        return product
+    else:
+        produto.produto = product.produto
+        produto.unidade = product.unidade
+        produto.qtde = product.qtde
+        produto.grupo = product.grupo
+        produto.fornecedor = product.fornecedor
+        produto.precocusto = product.precocusto
+        produto.precovenda = product.precovenda
+        produto.ativo = product.ativo
+        session.add(produto)
+        session.commit()
+        session.refresh(produto)
+        return produto

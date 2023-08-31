@@ -12,6 +12,7 @@ class EstoqueSchema(BaseModel):
     fornecedor: str
     ativo: str
 
+
 class EstoqueUpdateSchema(BaseModel):
     produto: str
     unidade: str
