@@ -7,10 +7,10 @@ import "../styles/ProductsView.css";
 const PageSize = 10;
 
 function ProductsView() {
-  const [account, setAccount] = useState('');
+  // const [account, setAccount] = useState('');
   const [initialDate, setInitialDate] = useState('');
   const [finalDate, setFinalDate] = useState('');
-  const [operador, setOperador] = useState('');
+  // const [operador, setOperador] = useState('');
   const [products, setProducts] = useState();
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -28,8 +28,8 @@ function ProductsView() {
         </h1>
       </div>
       <div className="filter_form">
-        <label htmlFor="bank-account" className="bank_account">
-          Bank Account:
+        {/* <label htmlFor="bank-account" className="bank_account">
+          Fornecedor:
           <input
             className="input"
             data-testid="bank-account"
@@ -37,29 +37,29 @@ function ProductsView() {
             value={ account }
             onChange={ ({ target }) => setAccount(target.value)}
           />
-        </label>
+        </label> */}
         <div className="filters">
         <label htmlFor="initial-date">
-          Initital Date:
+          Fornecedor:
           <input
             className="input"
             data-testid="initial-date"
-            type="date"
+            type="text"
             value={ initialDate }
             onChange={ ({ target }) => setInitialDate(target.value)}
           />
         </label>
         <label htmlFor="final-date">
-          Final Date:
+          Grupo:
           <input
             className="input"
             data-testid="final-date"
-            type="date"
+            type="text"
             value={ finalDate }
             onChange={ ({ target }) => setFinalDate(target.value)}
           />
         </label>
-        <label htmlFor="operador">
+        {/* <label htmlFor="operador">
           Operador:
           <input
             className="input"
@@ -68,7 +68,7 @@ function ProductsView() {
             value={ operador }
             onChange={ ({ target }) => setOperador(target.value)}
           />
-        </label>
+        </label> */}
         <button
           type="button"
           onClick={ async () => {
@@ -98,6 +98,8 @@ function ProductsView() {
             <th>Produto</th>
             <th>Unidade</th>
             <th>Quantidade</th>
+            <th>Custo</th>
+            <th>Venda</th>
           </tr>
         </thead>
         <tbody>
@@ -107,6 +109,8 @@ function ProductsView() {
               <td>{product.produto}</td>
               <td>{product.unidade}</td>
               <td>{product.qtde}</td>
+              <td>{product.precocusto}</td>
+              <td>{product.precovenda}</td>
             </tr>
           ) )}
         </tbody>
