@@ -5,3 +5,5 @@
 .venv
 *.pyc
 *.sqlite3
+dist
+build

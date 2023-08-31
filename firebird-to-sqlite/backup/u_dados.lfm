@@ -1,10 +1,9 @@
 object dmDados: TdmDados
   OldCreateOrder = False
-  Height = 594
-  HorizontalOffset = 878
-  VerticalOffset = 362
-  Width = 992
-  PPI = 144
+  Height = 396
+  HorizontalOffset = 772
+  VerticalOffset = 241
+  Width = 661
   object dbFirebird: TZConnection
     ControlsCodePage = cCP_UTF8
     AutoEncodeStrings = True
@@ -16,8 +15,8 @@ object dmDados: TdmDados
     User = 'sysdba'
     Password = 'masterkey'
     Protocol = 'firebird'
-    Left = 90
-    Top = 56
+    left = 60
+    top = 37
   end
   object dbSqlite: TZConnection
     ControlsCodePage = cCP_UTF8
@@ -32,8 +31,8 @@ object dmDados: TdmDados
     Database = 'C:\Users\stone\sync-products\firebird-to-sqlite\estoque.sqlite3'
     Protocol = 'sqlite-3'
     LibraryLocation = 'C:\Users\stone\sync-products\firebird-to-sqlite\sqlite3.dll'
-    Left = 90
-    Top = 204
+    left = 60
+    top = 136
   end
   object zqSEstoque: TZQuery
     Connection = dbSqlite
@@ -41,8 +40,8 @@ object dmDados: TdmDados
       'select * from estoque'
     )
     Params = <>
-    Left = 234
-    Top = 207
+    left = 156
+    top = 138
     object zqSEstoquecontrole: TLargeintField
       FieldKind = fkData
       FieldName = 'controle'
@@ -80,6 +79,8 @@ object dmDados: TdmDados
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      MaxValue = 0
+      MinValue = 0
       Precision = 10
     end
   end
@@ -89,7 +90,7 @@ object dmDados: TdmDados
       'select * from testoque'
     )
     Params = <>
-    Left = 216
-    Top = 64
+    left = 192
+    top = 49
   end
 end

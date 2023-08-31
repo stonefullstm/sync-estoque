@@ -22,7 +22,7 @@ def read_products(
 
 
 @router.post('/',
-             summary='Create a product.',
+             summary='Create/Update a product.',
              response_model=EstoqueSchema,
              status_code=201,
              tags=['Estoque'])

@@ -59,7 +59,6 @@ begin
   registros := dmDados.zqFEstoque.RecordCount;
   dmDados.zqFEstoque.First;
   pgbProgresso.Position := 0;
-  pgbProgresso.Max := registros;
   while not dmDados.zqFEstoque.EOF do
   begin
     dmDados.zqSEstoque.Insert;
@@ -68,7 +67,7 @@ begin
     dmDados.zqSEstoqueunidade.Value := dmDados.zqFEstoque.FieldByName('unidade').Value;
     dmDados.zqSEstoqueqtde.Value := dmDados.zqFEstoque.FieldByName('qtde').Value;
     dmDados.zqSEstoque.Post;
-    pgbProgresso.Position := pgbProgresso.Position + 1;
+    pgbProgresso.Position := pgbProgresso.Position + (100 div registros);
     dmDados.zqFEstoque.Next;
   end;
   dmDados.zqSEstoque.CommitUpdates;

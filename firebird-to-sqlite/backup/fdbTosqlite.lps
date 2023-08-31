@@ -4,7 +4,7 @@
     <PathDelim Value="\"/>
     <Version Value="12"/>
     <BuildModes Active="Default"/>
-    <Units Count="6">
+    <Units Count="5">
       <Unit0>
         <Filename Value="fdbTosqlite.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -20,7 +20,7 @@
         <ComponentName Value="frmPrincipal"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <TopLine Value="58"/>
+        <TopLine Value="55"/>
         <CursorPos X="32" Y="62"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
@@ -54,16 +54,8 @@
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit4>
-      <Unit5>
-        <Filename Value="c:\lazconfig64\onlinepackagemanager\packages\zeosdbo\src\component\ZAbstractDataset.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="448"/>
-        <CursorPos Y="454"/>
-        <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit5>
     </Units>
-    <JumpHistory Count="18" HistoryIndex="17">
+    <JumpHistory Count="17" HistoryIndex="16">
       <Position1>
         <Filename Value="u_dados.pas"/>
       </Position1>
@@ -130,10 +122,6 @@
         <Filename Value="u_principal.pas"/>
         <Caret Line="62" Column="32" TopLine="55"/>
       </Position17>
-      <Position18>
-        <Filename Value="u_dados.pas"/>
-        <Caret Line="10" Column="21"/>
-      </Position18>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

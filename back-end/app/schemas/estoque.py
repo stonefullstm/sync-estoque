@@ -5,13 +5,17 @@ class EstoqueSchema(BaseModel):
     controle: int
     produto: str
     unidade: str
-    qtde: int
-
+    qtde: float
+    precocusto: float
+    precovenda: float
+    grupo: str
+    fornecedor: str
+    ativo: str
 
 class EstoqueUpdateSchema(BaseModel):
     produto: str
     unidade: str
-    qtde: int
+    qtde: float
 
 
 class EstoqueList(BaseModel):
