@@ -64,6 +64,5 @@ def create_product_list(
     session.commit()
     session.add_all(products.products)
     session.commit()
-    # products.products = session.exec(
-    #     select(Estoque).limit(10))
+
     return 'Products succefully added'
