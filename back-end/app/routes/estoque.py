@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends
 from sqlmodel import Session, select, delete
 
 from app.models.estoque import Estoque
-from app.schemas.estoque import EstoqueList, EstoqueSchema
+from app.schemas.estoque import EstoqueList, EstoqueSchema, ProductsList
 from app.database.db import get_session
 
 router = APIRouter(prefix='/estoque')
@@ -58,12 +58,12 @@ def create_product(
              status_code=201,
              tags=['Estoque'])
 def create_product_list(
-    products: list[Estoque],
+    products: ProductsList,
     session: Session = Depends(get_session)
 ):
     session.exec(delete(Estoque))
     session.commit()
-    session.add_all(products)
+    session.add_all(products.products)
     session.commit()
-    products = session.exec(select(Estoque).limit(10))
-    return {'products': products}
+    saved_products = session.exec(select(Estoque).limit(10))
+    return {'products': saved_products}

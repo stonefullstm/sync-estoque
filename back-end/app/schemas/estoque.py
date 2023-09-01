@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from app.models.estoque import Estoque
 
 
 class EstoqueSchema(BaseModel):
@@ -21,3 +22,7 @@ class EstoqueUpdateSchema(BaseModel):
 
 class EstoqueList(BaseModel):
     products: list[EstoqueSchema]
+
+
+class ProductsList(BaseModel):
+    products: list[Estoque]
