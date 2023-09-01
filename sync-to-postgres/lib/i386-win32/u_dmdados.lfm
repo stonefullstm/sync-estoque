@@ -1,0 +1,21 @@
+object dmDados: TdmDados
+  OldCreateOrder = False
+  Height = 515
+  HorizontalOffset = 702
+  VerticalOffset = 264
+  Width = 792
+  PPI = 144
+  object IBConnection1: TIBConnection
+    Connected = False
+    LoginPrompt = False
+    DatabaseName = 'C:\Users\stone\projetos-teste\request-json\BASESGMASTER.FDB'
+    KeepConnection = False
+    Password = 'masterkey'
+    UserName = 'sysdba'
+    HostName = 'localhost'
+    CheckTransactionParams = False
+    UseConnectionCharSetIfNone = False
+    Left = 88
+    Top = 54
+  end
+end

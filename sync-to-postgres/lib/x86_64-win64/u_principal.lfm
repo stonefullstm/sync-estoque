@@ -1,0 +1,45 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 514
+  Height = 516
+  Top = 358
+  Width = 921
+  Caption = 'Sincronizar estoque'
+  ClientHeight = 516
+  ClientWidth = 921
+  DesignTimePPI = 144
+  Position = poScreenCenter
+  LCLVersion = '2.2.6.0'
+  object Button1: TButton
+    Left = 760
+    Height = 38
+    Top = 56
+    Width = 112
+    Caption = 'Consultar'
+    OnClick = Button1Click
+    TabOrder = 0
+  end
+  object ListBox1: TListBox
+    Left = 44
+    Height = 338
+    Top = 144
+    Width = 828
+    ItemHeight = 0
+    TabOrder = 1
+  end
+  object Button2: TButton
+    Left = 616
+    Height = 38
+    Top = 56
+    Width = 113
+    Caption = 'Sincronizar'
+    OnClick = Button2Click
+    TabOrder = 2
+  end
+  object pgbProgresso: TProgressBar
+    Left = 44
+    Height = 30
+    Top = 105
+    Width = 828
+    TabOrder = 3
+  end
+end

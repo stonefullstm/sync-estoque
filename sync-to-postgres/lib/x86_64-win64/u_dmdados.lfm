@@ -1,0 +1,34 @@
+object dmDados: TdmDados
+  OldCreateOrder = False
+  Height = 279
+  HorizontalOffset = 702
+  VerticalOffset = 264
+  Width = 365
+  PPI = 144
+  object ZConnection1: TZConnection
+    ControlsCodePage = cCP_UTF8
+    AutoEncodeStrings = True
+    Properties.Strings = (
+      'AutoEncodeStrings=True'
+      'controls_cp=CP_UTF8'
+    )
+    Connected = True
+    Port = 0
+    Database = 'C:\Users\stone\sync-products\sync-to-postgres\BASESGMASTER.FDB'
+    User = 'sysdba'
+    Password = 'masterkey'
+    Protocol = 'firebird'
+    LibraryLocation = 'C:\Program Files\Firebird\Firebird_2_5\bin\fbclient.dll'
+    Left = 96
+    Top = 48
+  end
+  object ZQuery1: TZQuery
+    Connection = ZConnection1
+    SQL.Strings = (
+      'select * from testoque where ativo = ''SIM'''
+    )
+    Params = <>
+    Left = 88
+    Top = 144
+  end
+end
