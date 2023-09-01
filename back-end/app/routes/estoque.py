@@ -65,5 +65,6 @@ def create_product_list(
     session.commit()
     session.add_all(products.products)
     session.commit()
-    saved_products = session.exec(select(Estoque).limit(10))
-    return {'products': saved_products}
+    products.products = session.exec(
+        select(Estoque).limit(10))
+    return {'products': products}
