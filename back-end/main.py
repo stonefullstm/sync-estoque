@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 from app.database.db import create_db_and_tables
 # from fastapi.openapi.utils import get_openapi
 
-from app.routes import estoque
+from app.routes import estoque, user
 
 origins = ['*']
 
@@ -44,6 +44,7 @@ async def http_exception_handler(request, exc: HTTPException):
 
 
 app.include_router(estoque.router)
+app.include_router(user.router)
 
 
 @app.get('/')

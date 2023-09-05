@@ -29,6 +29,6 @@ def get_session():
 
 def create_db_and_tables():
 
-    from app.models import estoque  # noqa: F401
+    from app.models import estoque, user  # noqa: F401
 
     SQLModel.metadata.create_all(engine)

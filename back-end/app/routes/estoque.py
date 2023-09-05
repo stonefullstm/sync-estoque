@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends
-# from sqlalchemy.exc import NoResultFound
 from sqlmodel import Session, select, delete
 
 from app.models.estoque import Estoque
