@@ -1,9 +1,12 @@
 from fastapi import APIRouter, Depends
 from sqlmodel import Session, select, delete
+from typing import Annotated
 
 from app.models.estoque import Estoque
+from app.models.user import Usuario
 from app.schemas.estoque import EstoqueList, EstoqueSchema, ProductsList
 from app.database.db import get_session
+from app.routes.user import get_current_user
 
 router = APIRouter(prefix='/estoque')
 
@@ -13,7 +16,8 @@ router = APIRouter(prefix='/estoque')
         summary='Returns all products.',
         response_model=EstoqueList,
         tags=['Estoque'])
-def read_products(
+async def read_products(
+    current_user: Annotated[Usuario, Depends(get_current_user)],
     session: Session = Depends(get_session)
 ):
     products = session.exec(select(Estoque)).all()
