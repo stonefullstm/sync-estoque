@@ -15,8 +15,14 @@ type
   TfrmPrincipal = class(TForm)
     Button1: TButton;
     Button2: TButton;
+    btnLogin: TButton;
+    edUserName: TEdit;
+    edPassword: TEdit;
+    Label1: TLabel;
+    Label2: TLabel;
     ListBox1: TListBox;
     pgbProgresso: TProgressBar;
+    procedure btnLoginClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
   private
@@ -27,6 +33,7 @@ type
 
 var
   frmPrincipal: TfrmPrincipal;
+  token: string;
 
 implementation
 
@@ -60,6 +67,28 @@ begin
     //WriteLn(person.FindPath('company.name').AsString);
     //WriteLn('');
   end;
+end;
+
+procedure TfrmPrincipal.btnLoginClick(Sender: TObject);
+const url = 'https://sync-estoque.onrender.com/user/login';
+var
+  postJson: TJSONObject;
+  httpClient: TFPHttpClient;
+  Response: TStringStream;
+begin
+  postJson := TJSONObject.Create;
+  postJson.Clear;
+  postJson.Add('username', edUserName.Text);
+  postJson.Add('password', edPassword.Text);
+  Response := TStringStream.Create('');
+  httpClient := TFPHttpClient.Create(Nil);
+  httpClient.AddHeader('Content-Type', 'application/x-www-form-urlencoded');
+  //httpClient.AllowRedirect := true;
+  httpClient.RequestBody := TStringStream.Create(postJson.AsJSON);
+  ListBox1.Items.Add(postJson.AsJSON);
+  httpClient.FormPost(url, Response);
+  httpClient.Free;
+  ListBox1.Items.Add(Response.DataString);
 end;
 
 procedure TfrmPrincipal.Button2Click(Sender: TObject);
