@@ -13,8 +13,8 @@ type
   { TfrmPrincipal }
 
   TfrmPrincipal = class(TForm)
-    Button1: TButton;
-    Button2: TButton;
+    btnConsultar: TButton;
+    btnSincronizar: TButton;
     btnLogin: TButton;
     edUserName: TEdit;
     edPassword: TEdit;
@@ -23,8 +23,8 @@ type
     ListBox1: TListBox;
     pgbProgresso: TProgressBar;
     procedure btnLoginClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
+    procedure btnConsultarClick(Sender: TObject);
+    procedure btnSincronizarClick(Sender: TObject);
   private
     { private declarations }
   public
@@ -34,6 +34,7 @@ type
 var
   frmPrincipal: TfrmPrincipal;
   token: string;
+  tokenType: string;
 
 implementation
 
@@ -43,38 +44,35 @@ uses u_dmdados;
 
 { TfrmPrincipal }
 
-procedure TfrmPrincipal.Button1Click(Sender: TObject);
+procedure TfrmPrincipal.btnConsultarClick(Sender: TObject);
 const url = 'https://sync-estoque.onrender.com/estoque/';
 var
   rawJson: AnsiString;
   people: TJSONArray;
   person: TJSONObject;
   personEnum: TJSONEnum;
+  httpClient: TFPHttpClient;
 begin
-  // Get the JSON data
-  rawJson := TFPHTTPClient.SimpleGet(url);
-  // Convert to TJSONData and cast as TJSONArray
+  httpClient := TFPHttpClient.Create(Nil);
+  httpClient.AddHeader('Content-Type', 'application/json');
+  ListBox1.Items.Add(tokenType + ' ' + token);
+  httpClient.AddHeader('Authorization', tokenType + ' ' + token);
+  rawJson := httpClient.Get(url);
   people := TJSONArray(GetJSON(rawJson).FindPath('products'));
-  // Loop using the TJSONEnumerator
   for personEnum in people do begin
-    // Cast the enum value to person
     person := TJSONObject(personEnum.Value);
-    // Output a few pieces of data as example.
     ListBox1.Items.Add(person.FindPath('controle').AsString + ', ' + person.FindPath('produto').AsString );
-    // WriteLn(person.FindPath('name').AsString);
-    //WriteLn(person.FindPath('id').AsString);
-    //WriteLn(person.FindPath('address.street').AsString);
-    //WriteLn(person.FindPath('company.name').AsString);
-    //WriteLn('');
   end;
+  httpClient.Free;
 end;
 
 procedure TfrmPrincipal.btnLoginClick(Sender: TObject);
-const url = 'https://sync-estoque.onrender.com/user/login';
+const url = 'https://sync-estoque.onrender.com/user/token';
 var
   postJson: TJSONObject;
   httpClient: TFPHttpClient;
   Response: TStringStream;
+  rawJson: AnsiString;
 begin
   postJson := TJSONObject.Create;
   postJson.Clear;
@@ -82,17 +80,20 @@ begin
   postJson.Add('password', edPassword.Text);
   Response := TStringStream.Create('');
   httpClient := TFPHttpClient.Create(Nil);
-  httpClient.AddHeader('Content-Type', 'application/x-www-form-urlencoded');
-  //httpClient.AllowRedirect := true;
+  httpClient.AddHeader('Content-Type', 'application/json');
   httpClient.RequestBody := TStringStream.Create(postJson.AsJSON);
   ListBox1.Items.Add(postJson.AsJSON);
 
-  httpClient.FormPost(url, Response);
+  httpClient.Post(url, Response);
   httpClient.Free;
-  ListBox1.Items.Add(Response.DataString);
+  rawJson := Response.DataString;
+  token := GetJSON(rawJson).FindPath('access_token').AsString;
+  tokenType := GetJSON(rawJson).FindPath('token_type').AsString;
+  //ListBox1.Items.Add(tokenType + ' ' + token);
+  btnConsultar.Enabled := True;
 end;
 
-procedure TfrmPrincipal.Button2Click(Sender: TObject);
+procedure TfrmPrincipal.btnSincronizarClick(Sender: TObject);
 const url = 'https://sync-estoque.onrender.com/estoque/lista';
 var
   postJson: TJSONObject;
@@ -109,7 +110,6 @@ begin
   dmDados.ZQuery1.First;
   pgbProgresso.Max := dmDados.ZQuery1.RecordCount;
   setLength(produtoArray, 2);
-  //postJson := TJSONObject.Create;
   estoqueJson := TJSONArray.Create;
   controle := 0;
 
@@ -127,17 +127,6 @@ begin
      postJson.Add('fornecedor', dmDados.ZQuery1.FieldByName('fornecedor').AsString);
      postJson.Add('ativo', dmDados.ZQuery1.FieldByName('ativo').AsString);
 
-     //httpClient := TFPHttpClient.Create(Nil);
-     //With httpClient do
-     //begin
-     //    RequestBody := TStringStream.Create(postJson.AsJSON);
-     //    responseData := Post(url);
-         //httpClient.Free;
-     //end;
-     //ListBox1.Items.Add(dmDados.SQLQuery1.FieldByName('produto').AsString);
-     controle := controle + 1;
-     //produtoArray[controle] := postJson;
-     //if controle = 10 then break;
      estoqueJson.Add(postJson);
      pgbProgresso.Position := controle;
      dmDados.ZQuery1.Next;
@@ -145,7 +134,6 @@ begin
   postJson := TJSONObject.Create;
   postJson.Clear;
   postJson.Add('products', estoqueJson);
-  //ListBox1.Items.Add(postJson.AsJSON);
   Response := TStringStream.Create('');
   httpClient := TFPHttpClient.Create(Nil);
   httpClient.AddHeader('Content-Type', 'application/json');
