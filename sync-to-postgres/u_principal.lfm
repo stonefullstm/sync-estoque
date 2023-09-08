@@ -1,10 +1,10 @@
 object frmPrincipal: TfrmPrincipal
-  Left = 514
-  Height = 584
-  Top = 328
+  Left = 492
+  Height = 621
+  Top = 209
   Width = 921
   Caption = 'Sincronizar estoque'
-  ClientHeight = 584
+  ClientHeight = 621
   ClientWidth = 921
   DesignTimePPI = 144
   Position = poScreenCenter
@@ -30,7 +30,7 @@ object frmPrincipal: TfrmPrincipal
   object ListBox1: TListBox
     Left = 36
     Height = 338
-    Top = 215
+    Top = 248
     Width = 836
     ItemHeight = 0
     TabOrder = 1
@@ -38,7 +38,7 @@ object frmPrincipal: TfrmPrincipal
   object btnSincronizar: TButton
     Left = 608
     Height = 38
-    Top = 114
+    Top = 112
     Width = 113
     Caption = 'Sincronizar'
     Enabled = False
@@ -48,7 +48,7 @@ object frmPrincipal: TfrmPrincipal
   object pgbProgresso: TProgressBar
     Left = 36
     Height = 30
-    Top = 176
+    Top = 200
     Width = 836
     TabOrder = 3
   end
@@ -92,5 +92,14 @@ object frmPrincipal: TfrmPrincipal
     Caption = 'Login'
     OnClick = btnLoginClick
     TabOrder = 6
+  end
+  object lblAguarde: TLabel
+    Left = 360
+    Height = 25
+    Top = 168
+    Width = 237
+    Caption = 'Aguarde resposta do servidor'
+    ParentColor = False
+    Visible = False
   end
 end

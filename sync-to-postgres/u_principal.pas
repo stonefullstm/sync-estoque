@@ -21,6 +21,7 @@ type
     GroupBox1: TGroupBox;
     Label1: TLabel;
     Label2: TLabel;
+    lblAguarde: TLabel;
     ListBox1: TListBox;
     pgbProgresso: TProgressBar;
     procedure btnLoginClick(Sender: TObject);
@@ -86,17 +87,21 @@ begin
   httpClient.AddHeader('Content-Type', 'application/json');
   httpClient.RequestBody := TStringStream.Create(postJson.AsJSON);
   *}
+  lblAguarde.Visible := True;
+  lblAguarde.Repaint;
   Response := TStringStream.Create('');
   httpClient := TFPHttpClient.Create(Nil);
   params := TStringList.Create;
   params.add('username='+edUserName.Text);
   params.add('password='+edPassword.Text);
-  httpClient.AddHeader('Content-Type', 'application/x-www-form-urlencoded');
+  //httpClient.AddHeader('Content-Type', 'application/x-www-form-urlencoded');
   try
     try
       //httpClient.Post(url, Response);
       httpClient.FormPost(url, params, Response);
       rawJson := Response.DataString;
+      lblAguarde.Visible := False;
+      lblAguarde.Repaint;
       if httpClient.ResponseStatusCode = 200 then
       begin
         token := GetJSON(rawJson).FindPath('access_token').AsString;
