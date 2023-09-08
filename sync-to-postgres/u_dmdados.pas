@@ -12,8 +12,8 @@ type
   { TdmDados }
 
   TdmDados = class(TDataModule)
-    ZConnection1: TZConnection;
-    ZQuery1: TZQuery;
+    dbConnection: TZConnection;
+    queEstoque: TZQuery;
   private
 
   public

@@ -22,7 +22,7 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lblAguarde: TLabel;
-    ListBox1: TListBox;
+    lbxVisualizacao: TListBox;
     pgbProgresso: TProgressBar;
     procedure btnLoginClick(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
@@ -62,7 +62,7 @@ begin
   people := TJSONArray(GetJSON(rawJson).FindPath('products'));
   for personEnum in people do begin
     person := TJSONObject(personEnum.Value);
-    ListBox1.Items.Add(person.FindPath('controle').AsString + ', ' + person.FindPath('produto').AsString );
+    lbxVisualizacao.Items.Add(person.FindPath('controle').AsString + ', ' + person.FindPath('produto').AsString );
   end;
   httpClient.Free;
 end;
@@ -107,6 +107,7 @@ begin
         token := GetJSON(rawJson).FindPath('access_token').AsString;
         tokenType := GetJSON(rawJson).FindPath('token_type').AsString;
         btnConsultar.Enabled := True;
+        btnSincronizar.Enabled := True;
       end
       else
         MessageDlg('Informação', 'Usuário ou senha inválidos', mtInformation, [mbOk], 0);
@@ -132,31 +133,31 @@ var
   tamanho: integer;
   Response: TStringStream;
 begin
-  ListBox1.Items.Add(DateTimeToStr(Now));
-  dmDados.ZQuery1.Open;
-  dmDados.ZQuery1.First;
-  pgbProgresso.Max := dmDados.ZQuery1.RecordCount;
+  dmDados.queEstoque.Open;
+  dmDados.queEstoque.First;
+  pgbProgresso.Max := dmDados.queEstoque.RecordCount;
   setLength(produtoArray, 2);
   estoqueJson := TJSONArray.Create;
   controle := 0;
 
-  while not dmDados.ZQuery1.EOF do
+  while not dmDados.queEstoque.EOF do
   begin
     postJson := TJSONObject.Create;
      postJson.Clear;
-     postJson.Add('controle', dmDados.ZQuery1.FieldByName('controle').AsInteger);
-     postJson.Add('produto', dmDados.ZQuery1.FieldByName('produto').AsString);
-     postJson.Add('unidade', dmDados.ZQuery1.FieldByName('unidade').AsString);
-     postJson.Add('qtde', dmDados.ZQuery1.FieldByName('qtde').AsFloat);
-     postJson.Add('precocusto', dmDados.ZQuery1.FieldByName('precocusto').AsFloat);
-     postJson.Add('precovenda', dmDados.ZQuery1.FieldByName('precovenda').AsFloat);
-     postJson.Add('grupo', dmDados.ZQuery1.FieldByName('grupo').AsString);
-     postJson.Add('fornecedor', dmDados.ZQuery1.FieldByName('fornecedor').AsString);
-     postJson.Add('ativo', dmDados.ZQuery1.FieldByName('ativo').AsString);
+     postJson.Add('controle', dmDados.queEstoque.FieldByName('controle').AsInteger);
+     postJson.Add('produto', dmDados.queEstoque.FieldByName('produto').AsString);
+     postJson.Add('unidade', dmDados.queEstoque.FieldByName('unidade').AsString);
+     postJson.Add('qtde', dmDados.queEstoque.FieldByName('qtde').AsFloat);
+     postJson.Add('precocusto', dmDados.queEstoque.FieldByName('precocusto').AsFloat);
+     postJson.Add('precovenda', dmDados.queEstoque.FieldByName('precovenda').AsFloat);
+     postJson.Add('grupo', dmDados.queEstoque.FieldByName('grupo').AsString);
+     postJson.Add('fornecedor', dmDados.queEstoque.FieldByName('fornecedor').AsString);
+     postJson.Add('ativo', dmDados.queEstoque.FieldByName('ativo').AsString);
 
      estoqueJson.Add(postJson);
      pgbProgresso.Position := controle;
-     dmDados.ZQuery1.Next;
+     pgbProgresso.Repaint;
+     dmDados.queEstoque.Next;
   end;
   postJson := TJSONObject.Create;
   postJson.Clear;
@@ -164,12 +165,15 @@ begin
   Response := TStringStream.Create('');
   httpClient := TFPHttpClient.Create(Nil);
   httpClient.AddHeader('Content-Type', 'application/json');
+  httpClient.AddHeader('Authorization', tokenType + ' ' + token);
   httpClient.AllowRedirect := true;
   httpClient.RequestBody := TStringStream.Create(postJson.AsJSON);
   httpClient.Post(url, Response);
   httpClient.Free;
-  ListBox1.Items.Add(Response.DataString);
-  ListBox1.Items.Add(DateTimeToStr(Now));
+  if httpClient.ResponseStatusCode = 200 then
+     MessageDlg('Informação', 'Sincronização concluída com sucesso', mtInformation, [mbOk], 0)
+  else
+     MessageDlg('Informação', 'Algo saiu errado', mtInformation, [mbOk], 0);
 end;
 
 end.

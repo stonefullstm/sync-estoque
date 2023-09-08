@@ -27,7 +27,7 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnConsultarClick
     TabOrder = 0
   end
-  object ListBox1: TListBox
+  object lbxVisualizacao: TListBox
     Left = 36
     Height = 338
     Top = 248
@@ -96,7 +96,7 @@ object frmPrincipal: TfrmPrincipal
   object lblAguarde: TLabel
     Left = 360
     Height = 25
-    Top = 160
+    Top = 168
     Width = 237
     Caption = 'Aguarde resposta do servidor'
     ParentColor = False

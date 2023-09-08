@@ -27,7 +27,7 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnConsultarClick
     TabOrder = 0
   end
-  object ListBox1: TListBox
+  object lbxVisualizacao: TListBox
     Left = 36
     Height = 338
     Top = 248

@@ -6,13 +6,12 @@
     <BuildModes Active="Default"/>
     <Units Count="5">
       <Unit0>
-        <Filename Value="project1.lpr"/>
+        <Filename Value="syncpg.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="-1"/>
-        <WindowIndex Value="-1"/>
-        <TopLine Value="-1"/>
-        <CursorPos X="-1" Y="-1"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
         <UsageCount Value="134"/>
+        <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="u_principal.pas"/>
@@ -20,9 +19,8 @@
         <ComponentName Value="frmPrincipal"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="149"/>
-        <CursorPos X="27" Y="159"/>
+        <TopLine Value="141"/>
+        <CursorPos X="62" Y="143"/>
         <UsageCount Value="134"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -33,7 +31,7 @@
         <ComponentName Value="dmDados"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="DataModule"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="2"/>
         <TopLine Value="9"/>
         <CursorPos X="61" Y="14"/>
         <UsageCount Value="133"/>

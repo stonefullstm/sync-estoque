@@ -5,7 +5,7 @@ object dmDados: TdmDados
   VerticalOffset = 264
   Width = 365
   PPI = 144
-  object ZConnection1: TZConnection
+  object dbConnection: TZConnection
     ControlsCodePage = cCP_UTF8
     AutoEncodeStrings = True
     Properties.Strings = (
@@ -22,8 +22,8 @@ object dmDados: TdmDados
     Left = 96
     Top = 48
   end
-  object ZQuery1: TZQuery
-    Connection = ZConnection1
+  object queEstoque: TZQuery
+    Connection = dbConnection
     SQL.Strings = (
       'select * from testoque where ativo = ''SIM'''
     )

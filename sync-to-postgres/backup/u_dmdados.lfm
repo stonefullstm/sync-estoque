@@ -14,7 +14,7 @@ object dmDados: TdmDados
     )
     Connected = True
     Port = 0
-    Database = 'C:\Users\stone\sync-products\firebird-to-sqlite\BASESGMASTER.FDB'
+    Database = 'C:\Users\stone\sync-products\sync-to-postgres\BASESGMASTER.FDB'
     User = 'sysdba'
     Password = 'masterkey'
     Protocol = 'firebird'

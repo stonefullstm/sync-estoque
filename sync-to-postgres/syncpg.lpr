@@ -1,4 +1,4 @@
-program project1;
+program syncpg;
 
 {$mode objfpc}{$H+}
 
