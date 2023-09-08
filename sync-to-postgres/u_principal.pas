@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ComCtrls, fpjson, jsonparser, fphttpclient, opensslsockets;
+  ComCtrls, LCLType, fpjson, jsonparser, fphttpclient, opensslsockets;
 
 type
 
@@ -18,6 +18,7 @@ type
     btnLogin: TButton;
     edUserName: TEdit;
     edPassword: TEdit;
+    GroupBox1: TGroupBox;
     Label1: TLabel;
     Label2: TLabel;
     ListBox1: TListBox;
@@ -55,7 +56,6 @@ var
 begin
   httpClient := TFPHttpClient.Create(Nil);
   httpClient.AddHeader('Content-Type', 'application/json');
-  ListBox1.Items.Add(tokenType + ' ' + token);
   httpClient.AddHeader('Authorization', tokenType + ' ' + token);
   rawJson := httpClient.Get(url);
   people := TJSONArray(GetJSON(rawJson).FindPath('products'));
@@ -67,14 +67,17 @@ begin
 end;
 
 procedure TfrmPrincipal.btnLoginClick(Sender: TObject);
-const url = 'https://sync-estoque.onrender.com/user/token';
+//const url = 'https://sync-estoque.onrender.com/user/token';
+const url = 'https://sync-estoque.onrender.com/user/login';
 var
   postJson: TJSONObject;
   httpClient: TFPHttpClient;
   Response: TStringStream;
   rawJson: AnsiString;
+  params: TStrings;
 begin
   postJson := TJSONObject.Create;
+  {*
   postJson.Clear;
   postJson.Add('username', edUserName.Text);
   postJson.Add('password', edPassword.Text);
@@ -82,15 +85,34 @@ begin
   httpClient := TFPHttpClient.Create(Nil);
   httpClient.AddHeader('Content-Type', 'application/json');
   httpClient.RequestBody := TStringStream.Create(postJson.AsJSON);
-  ListBox1.Items.Add(postJson.AsJSON);
-
-  httpClient.Post(url, Response);
-  httpClient.Free;
-  rawJson := Response.DataString;
-  token := GetJSON(rawJson).FindPath('access_token').AsString;
-  tokenType := GetJSON(rawJson).FindPath('token_type').AsString;
-  //ListBox1.Items.Add(tokenType + ' ' + token);
-  btnConsultar.Enabled := True;
+  *}
+  Response := TStringStream.Create('');
+  httpClient := TFPHttpClient.Create(Nil);
+  params := TStringList.Create;
+  params.add('username='+edUserName.Text);
+  params.add('password='+edPassword.Text);
+  httpClient.AddHeader('Content-Type', 'application/x-www-form-urlencoded');
+  try
+    try
+      //httpClient.Post(url, Response);
+      httpClient.FormPost(url, params, Response);
+      rawJson := Response.DataString;
+      if httpClient.ResponseStatusCode = 200 then
+      begin
+        token := GetJSON(rawJson).FindPath('access_token').AsString;
+        tokenType := GetJSON(rawJson).FindPath('token_type').AsString;
+        btnConsultar.Enabled := True;
+      end
+      else
+        MessageDlg('Informação', 'Usuário ou senha inválidos', mtInformation, [mbOk], 0);
+    except on E: Exception do
+      MessageDlg('Erro', E.Message, mtInformation, [mbOk], 0);
+    end;
+  finally
+     httpClient.RequestBody.Free;
+     httpClient.Free;
+     Response.Free;
+  end;
 end;
 
 procedure TfrmPrincipal.btnSincronizarClick(Sender: TObject);

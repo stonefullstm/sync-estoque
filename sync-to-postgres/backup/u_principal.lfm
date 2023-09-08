@@ -1,18 +1,26 @@
 object frmPrincipal: TfrmPrincipal
   Left = 514
-  Height = 516
-  Top = 358
+  Height = 584
+  Top = 328
   Width = 921
   Caption = 'Sincronizar estoque'
-  ClientHeight = 516
+  ClientHeight = 584
   ClientWidth = 921
   DesignTimePPI = 144
   Position = poScreenCenter
   LCLVersion = '2.2.6.0'
+  object GroupBox1: TGroupBox
+    Left = 36
+    Height = 136
+    Top = 16
+    Width = 392
+    Caption = 'Login'
+    TabOrder = 7
+  end
   object btnConsultar: TButton
     Left = 760
     Height = 38
-    Top = 39
+    Top = 114
     Width = 112
     Caption = 'Consultar'
     Enabled = False
@@ -20,17 +28,17 @@ object frmPrincipal: TfrmPrincipal
     TabOrder = 0
   end
   object ListBox1: TListBox
-    Left = 44
+    Left = 36
     Height = 338
-    Top = 144
-    Width = 828
+    Top = 215
+    Width = 836
     ItemHeight = 0
     TabOrder = 1
   end
   object btnSincronizar: TButton
-    Left = 616
+    Left = 608
     Height = 38
-    Top = 39
+    Top = 114
     Width = 113
     Caption = 'Sincronizar'
     Enabled = False
@@ -38,23 +46,23 @@ object frmPrincipal: TfrmPrincipal
     TabOrder = 2
   end
   object pgbProgresso: TProgressBar
-    Left = 44
+    Left = 36
     Height = 30
-    Top = 105
-    Width = 828
+    Top = 176
+    Width = 836
     TabOrder = 3
   end
   object edUserName: TEdit
     Left = 112
     Height = 33
-    Top = 0
+    Top = 55
     Width = 168
     TabOrder = 4
   end
   object edPassword: TEdit
-    Left = 112
+    Left = 113
     Height = 33
-    Top = 44
+    Top = 97
     Width = 168
     EchoMode = emPassword
     PasswordChar = '*'
@@ -63,23 +71,23 @@ object frmPrincipal: TfrmPrincipal
   object Label1: TLabel
     Left = 44
     Height = 25
-    Top = 8
+    Top = 63
     Width = 60
     Caption = 'Usuário'
     ParentColor = False
   end
   object Label2: TLabel
-    Left = 44
+    Left = 45
     Height = 25
-    Top = 52
+    Top = 105
     Width = 48
     Caption = 'Senha'
     ParentColor = False
   end
   object btnLogin: TButton
-    Left = 296
+    Left = 297
     Height = 38
-    Top = 39
+    Top = 92
     Width = 113
     Caption = 'Login'
     OnClick = btnLoginClick
