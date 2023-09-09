@@ -78,26 +78,17 @@ var
   params: TStrings;
 begin
   postJson := TJSONObject.Create;
-  {*
-  postJson.Clear;
-  postJson.Add('username', edUserName.Text);
-  postJson.Add('password', edPassword.Text);
-  Response := TStringStream.Create('');
-  httpClient := TFPHttpClient.Create(Nil);
-  httpClient.AddHeader('Content-Type', 'application/json');
-  httpClient.RequestBody := TStringStream.Create(postJson.AsJSON);
-  *}
   lblAguarde.Visible := True;
   lblAguarde.Repaint;
   Response := TStringStream.Create('');
   httpClient := TFPHttpClient.Create(Nil);
   params := TStringList.Create;
-  params.add('username='+edUserName.Text);
-  params.add('password='+edPassword.Text);
-  //httpClient.AddHeader('Content-Type', 'application/x-www-form-urlencoded');
+  //params.add('username='+edUserName.Text);
+  //params.add('password='+edPassword.Text);
+  params.Values['username'] := edUserName.Text;
+  params.Values['password'] := edPassword.Text;
   try
     try
-      //httpClient.Post(url, Response);
       httpClient.FormPost(url, params, Response);
       rawJson := Response.DataString;
       lblAguarde.Visible := False;

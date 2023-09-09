@@ -171,7 +171,7 @@ begin
   httpClient.Post(url, Response);
   httpClient.Free;
   if httpClient.ResponseStatusCode = 200 then
-     MessageDlg('Informação', 'Sincronização concluída com sucesso', mtInformation, [mbOk], 0);
+     MessageDlg('Informação', 'Sincronização concluída com sucesso', mtInformation, [mbOk], 0)
   else
      MessageDlg('Informação', 'Algo saiu errado', mtInformation, [mbOk], 0);
 end;
