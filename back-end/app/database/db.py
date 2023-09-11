@@ -1,15 +1,15 @@
 from sqlmodel import create_engine, Session, SQLModel
 from sqlalchemy.engine import URL
+from dotenv import dotenv_values
 
-uri = '''postgres://nynhjpaz:TbMkL0YduVe-
-    npyerTXGiOr0JfyYk1u4@hansken.db.elephantsql.com/nynhjpaz'''
+config = dotenv_values()
 
 url = URL.create(
-    drivername="postgresql",
-    username="nynhjpaz",
-    host="hansken.db.elephantsql.com",
-    password="TbMkL0YduVe-npyerTXGiOr0JfyYk1u4",
-    database="nynhjpaz"
+    drivername=config['DRIVER_NAME'],
+    username=config['USER_NAME'],
+    host=config['HOST_NAME'],
+    password=config['USER_PASSWORD'],
+    database=config['DATABASE_NAME']
 )
 
 engine = create_engine(url)
