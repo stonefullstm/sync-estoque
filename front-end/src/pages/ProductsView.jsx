@@ -2,7 +2,6 @@ import { useState, useMemo } from "react";
 import Pagination from "../components/Pagination";
 import { myFetch } from "../services/fetch";
 import "../styles/ProductsView.css";
-// import { converteData } from "../services/dateUtil";
 
 const PageSize = 10;
 
@@ -72,11 +71,18 @@ function ProductsView() {
         <button
           type="button"
           onClick={ async () => {
-            const response = await myFetch(
-              `estoque`
-              );
-            if (!response.message) {
-              setProducts(response);
+            const options = {
+              method: 'GET',
+              headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+              },
+            };
+            const response = await myFetch('estoque', options);
+      
+            if (response.status == 200) {
+              setProducts(await response.json());
             } else {
               alert("Dados não localizados");
             }
