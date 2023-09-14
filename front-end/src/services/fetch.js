@@ -27,3 +27,30 @@ axiosApi.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
+
+
+axiosApi.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+
+      try {
+        const refreshToken = localStorage.getItem('refreshToken');
+        const response = await axios.post('https://sync-estoque.onrender.com/user/refresh', { refreshToken });
+        const { access_token } = response.data;
+
+        localStorage.setItem('token', access_token);
+
+        originalRequest.headers.Authorization = `Bearer ${access_token}`;
+        return axios(originalRequest);
+      } catch (error) {
+        // Handle refresh token error or redirect to login
+      }
+    }
+
+    return Promise.reject(error);
+  }
+);
+

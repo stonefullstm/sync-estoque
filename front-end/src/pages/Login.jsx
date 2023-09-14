@@ -32,6 +32,7 @@ function Login() {
             if (response.status == 200) {
               const result = await response.data;
               localStorage.setItem('token', result.access_token);
+              localStorage.setItem('refreshToken', result.refresh_token);
               navigate('/products')
             } else {
               alert('Dados de login inválidos');
