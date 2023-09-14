@@ -153,7 +153,7 @@ def get_new_token(
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = decode_refresh_jwt(refresh_token)
+        payload = decode_refresh_jwt(refresh_token.refresh_token)
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
