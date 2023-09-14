@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../styles/Login.css'
-import { myFetch } from '../services/fetch';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -27,15 +27,10 @@ function Login() {
         <button type='button'
           className='login-button'
           onClick={ async () => {
-            const requestOptions = {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-              body: new URLSearchParams({ username, password }).toString()
-            };
-            
-            const response = await myFetch('user/login', requestOptions);
+            const params = new URLSearchParams({ username, password });
+            const response = await axios.post('https://sync-estoque.onrender.com/user/login', params);
             if (response.status == 200) {
-              const result = await response.json();
+              const result = await response.data;
               localStorage.setItem('token', result.access_token);
               navigate('/products')
             } else {

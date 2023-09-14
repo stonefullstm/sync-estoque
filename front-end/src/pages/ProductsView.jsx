@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import Pagination from "../components/Pagination";
-import { myFetch } from "../services/fetch";
+import { axiosApi } from "../services/fetch";
 import "../styles/ProductsView.css";
 
 const PageSize = 10;
@@ -71,18 +71,18 @@ function ProductsView() {
         <button
           type="button"
           onClick={ async () => {
-            const options = {
-              method: 'GET',
-              headers: {
-                'Accept': 'application/json',
-                'Content-type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-              },
-            };
-            const response = await myFetch('estoque', options);
+            // const options = {
+            //   method: 'GET',
+            //   headers: {
+            //     'Accept': 'application/json',
+            //     'Content-type': 'application/json',
+            //     'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            //   },
+            // };
+            const response = await axiosApi('/');
       
             if (response.status == 200) {
-              setProducts(await response.json());
+              setProducts(await response.data);
             } else {
               alert("Dados não localizados");
             }

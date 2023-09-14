@@ -1,4 +1,5 @@
 import fetch from 'cross-fetch';
+import axios from 'axios';
 
 export const myFetch = async (endpoint, options = null) => {
   const url = `https://sync-estoque.onrender.com/${endpoint}`;
@@ -11,3 +12,18 @@ export const myFetch = async (endpoint, options = null) => {
   // return result;
   return response;
 }
+
+export const axiosApi = axios.create({
+  baseURL: 'https://sync-estoque.onrender.com/estoque',
+});
+
+axiosApi.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
