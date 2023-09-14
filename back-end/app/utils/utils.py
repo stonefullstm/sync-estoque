@@ -47,3 +47,8 @@ def create_refresh_token(data: dict, expires_delta: timedelta):
 def decode_jwt(token):
     payload = jwt.decode(token, JWT_SECRET_KEY, algorithms=[ALGORITHM])
     return payload
+
+
+def decode_refresh_jwt(token):
+    payload = jwt.decode(token, JWT_REFRESH_SECRET_KEY, algorithms=[ALGORITHM])
+    return payload

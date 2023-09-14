@@ -14,6 +14,7 @@ from app.utils.utils import (
     create_access_token,
     create_refresh_token,
     decode_jwt,
+    decode_refresh_jwt,
     verify_password
 )
 
@@ -152,7 +153,7 @@ def get_new_token(
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = decode_jwt(refresh_token)
+        payload = decode_refresh_jwt(refresh_token)
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
