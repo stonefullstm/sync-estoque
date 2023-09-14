@@ -7,16 +7,18 @@ from jose import JWTError
 
 from app.models.user import Usuario
 from app.schemas.user import UserOut, UserAuth
-from app.schemas.token import Token, TokenData
+from app.schemas.token import Token, TokenData, AccessToken, RefreshToken
 from app.database.db import get_session
 from app.utils.utils import (
     get_password_hash,
     create_access_token,
+    create_refresh_token,
     decode_jwt,
     verify_password
 )
 
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 15
+REFRESH_TOKEN_EXPIRE_MINUTES = 60 * 24
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="user/login")
 
@@ -87,10 +89,18 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
         )
 
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    refresh_token_expires = timedelta(minutes=REFRESH_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
         data={"sub": user_found.username}, expires_delta=access_token_expires
     )
-    return {"access_token": access_token, "token_type": "bearer"}
+    refresh_token = create_refresh_token(
+        data={"sub": user_found.username}, expires_delta=refresh_token_expires
+    )
+
+    return {
+        "access_token": access_token,
+        "refresh_token": refresh_token,
+        "token_type": "bearer"}
 
 
 @router.get("/me/",
@@ -126,5 +136,35 @@ def get_token(user: UserAuth, session: Session = Depends(get_session)):
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
         data={"sub": user_found.username}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
+
+
+@router.post(
+        '/refresh', summary="Get a new access token",
+        response_model=AccessToken,
+        tags=['Usuário'])
+def get_new_token(
+        refresh_token: RefreshToken, session: Session = Depends(get_session)):
+    credentials_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Could not validate credentials",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+    try:
+        payload = decode_jwt(refresh_token)
+        username: str = payload.get("sub")
+        if username is None:
+            raise credentials_exception
+        token_data = TokenData(username=username)
+    except JWTError:
+        raise credentials_exception
+    user = session.exec(
+        select(Usuario).where(Usuario.username == token_data.username)).first()
+    if user is None:
+        raise credentials_exception
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
