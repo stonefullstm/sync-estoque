@@ -7,7 +7,7 @@ from app.database.db import create_db_and_tables
 
 from app.routes import estoque, user
 
-origins = ['*']
+origins = ['https://sync-estoque-front.onrender.com']
 
 app = FastAPI()
 
