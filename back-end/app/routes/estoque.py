@@ -6,7 +6,7 @@ from app.models.estoque import Estoque
 from app.models.user import Usuario
 from app.schemas.estoque import EstoqueList, EstoqueSchema, ProductsList
 from app.database.db import get_session
-from app.routes.user import get_current_user
+from app.routes.user import get_current_active_user
 
 router = APIRouter(prefix='/estoque')
 
@@ -17,7 +17,7 @@ router = APIRouter(prefix='/estoque')
         response_model=EstoqueList,
         tags=['Estoque'])
 async def read_products(
-    current_user: Annotated[Usuario, Depends(get_current_user)],
+    current_user: Annotated[Usuario, Depends(get_current_active_user)],
     session: Session = Depends(get_session)
 ):
     products = session.exec(select(Estoque)).all()

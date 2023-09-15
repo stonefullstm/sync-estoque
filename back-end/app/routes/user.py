@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from sqlmodel import Session, select
 from jose import JWTError
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.models.user import Usuario
 from app.schemas.user import UserOut, UserAuth
@@ -21,18 +22,19 @@ from app.utils.utils import (
 ACCESS_TOKEN_EXPIRE_MINUTES = 15
 REFRESH_TOKEN_EXPIRE_MINUTES = 60 * 24
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="user/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
-router = APIRouter(prefix='/user')
+router = APIRouter()
+
+credentials_exception = StarletteHTTPException(
+    status_code=status.HTTP_401_UNAUTHORIZED,
+    detail="Could not validate credentials",
+    headers={"WWW-Authenticate": "Bearer"},
+)
 
 
 async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)],
                            session: Session = Depends(get_session)):
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
     try:
         payload = decode_jwt(token)
         username: str = payload.get("sub")
@@ -48,7 +50,15 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)],
     return user
 
 
-@router.post('/',
+async def get_current_active_user(
+    current_user: Annotated[Usuario, Depends(get_current_user)]
+):
+    if current_user.disabled:
+        raise HTTPException(status_code=400, detail="Inactive user")
+    return current_user
+
+
+@router.post('/user',
              summary='Create a user',
              response_model=UserOut,
              status_code=201,
@@ -68,7 +78,7 @@ async def create_user(
 
 
 @router.post(
-        '/login', summary="Create access token for user",
+        '/login', summary="Create access and refresh token for user",
         response_model=Token,
         tags=['Usuário'])
 async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
@@ -104,7 +114,7 @@ async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
         "token_type": "bearer"}
 
 
-@router.get("/me/",
+@router.get("/user/me/",
             response_model=UserOut,
             tags=['Usuário'], summary='Returns user data')
 async def read_users_me(
@@ -119,11 +129,7 @@ async def read_users_me(
         tags=['Usuário'])
 def get_new_token(
         refresh_token: RefreshToken, session: Session = Depends(get_session)):
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
+
     try:
         payload = decode_refresh_jwt(refresh_token.refresh_token)
         username: str = payload.get("sub")
