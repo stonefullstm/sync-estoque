@@ -114,34 +114,6 @@ async def read_users_me(
 
 
 @router.post(
-        '/token', summary="Create access token for user",
-        response_model=Token,
-        tags=['Usuário'])
-def get_token(user: UserAuth, session: Session = Depends(get_session)):
-
-    user_found = session.exec(
-        select(Usuario).where(Usuario.username == user.username)).first()
-    if user_found is None:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Incorrect username"
-        )
-
-    hashed_pass = user_found.password
-    if not verify_password(user.password, hashed_pass):
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Incorrect password"
-        )
-
-    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = create_access_token(
-        data={"sub": user_found.username}, expires_delta=access_token_expires
-    )
-    return {"access_token": access_token, "token_type": "bearer"}
-
-
-@router.post(
         '/refresh', summary="Get a new access token",
         response_model=AccessToken,
         tags=['Usuário'])
