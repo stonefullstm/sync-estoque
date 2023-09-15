@@ -28,7 +28,7 @@ function Login() {
           className='login-button'
           onClick={ async () => {
             const params = new URLSearchParams({ username, password });
-            const response = await axios.post('https://sync-estoque.onrender.com/user/login', params);
+            const response = await axios.post('https://sync-estoque.onrender.com/login', params);
             if (response.status == 200) {
               const result = await response.data;
               localStorage.setItem('token', result.access_token);

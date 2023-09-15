@@ -38,7 +38,7 @@ axiosApi.interceptors.response.use(
 
       try {
         const refreshToken = localStorage.getItem('refreshToken');
-        const response = await axios.post('https://sync-estoque.onrender.com/user/refresh', { refreshToken });
+        const response = await axios.post('https://sync-estoque.onrender.com/refresh', { refreshToken });
         const { access_token } = response.data;
 
         localStorage.setItem('token', access_token);
