@@ -15,7 +15,13 @@ O **Sync Estoque** é uma aplicação constituída de três módulos. Uma API RE
 ## Instalação e execução
 
 ### Back-end ###
-
+1. Inicialmente, clone o repositório com o comando `git clone git@github.com:stonefullstm/sync-estoque.git`
+2. Na raiz do repositório, execute `cd back-end` e em seguida `pip install -r requirements.txt` a fim de instalar as dependências
+3. Defina um arquivo `.env` de acordo com o `.env.example``
+4. Execute `uvicorn main:app`
+5. A API estará rodando em `http://localhost:8000`
+6. No endereço `http://localhost:8000/docs` pode-se ver a documentação da API e testar o seu funcionamento
+   
 ### Módulo *standalone* em Lazarus ###
 
 ### Front-end ###
